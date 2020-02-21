@@ -1,6 +1,7 @@
-package de.marcoedenhofer.stocktool.service.csvingestor;
+package de.marcoedenhofer.stocktool.service.csvingestor.impl;
 
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
+import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Path;
@@ -33,7 +34,5 @@ class CsvLoaderTest {
                 () -> assertThat(stocks.get(0).name,is(referenceDto.name)),
                 () -> assertThat(stocks.get(0).symbol,is(referenceDto.symbol))
         );
-
-
     }
 }

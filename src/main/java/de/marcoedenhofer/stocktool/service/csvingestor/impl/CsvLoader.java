@@ -1,9 +1,11 @@
-package de.marcoedenhofer.stocktool.service.csvingestor;
+package de.marcoedenhofer.stocktool.service.csvingestor.impl;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
+import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
+@Component
 public class CsvLoader implements ICsvLoader {
 
     final private Function<CsvStockEntry, StockWithWeightDto> csvEntryToStockWithWeightInFloat = csvStockEntry -> {

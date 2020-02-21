@@ -1,5 +1,6 @@
 package de.marcoedenhofer.stocktool.testutils;
 
+import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.model.Etf;
 import de.marcoedenhofer.stocktool.model.IncludedStock;
 import de.marcoedenhofer.stocktool.model.Stock;
@@ -24,7 +25,7 @@ public class DummyDataGenerator {
             etf.setName("Dummy ETF No. 1");
 
             IncludedStock microsoft = generateIncludedStockWithWeightForEtf(generateMicrosoftStock(),12.3f, etf);
-            IncludedStock apple = generateIncludedStockWithWeightForEtf(generateApplyStock(),8.9f, etf);
+            IncludedStock apple = generateIncludedStockWithWeightForEtf(generateAppleStock(),8.9f, etf);
             etf.getStocks().addAll(List.of(microsoft, apple));
         } else {
             etf = dummyEtf1;
@@ -76,7 +77,7 @@ public class DummyDataGenerator {
         return stock;
     }
 
-    public static Stock generateApplyStock() {
+    public static Stock generateAppleStock() {
         Stock stock;
 
         if (appleStock == null) {
@@ -104,5 +105,22 @@ public class DummyDataGenerator {
         }
 
         return stock;
+    }
+
+    public static List<StockWithWeightDto> generateStockWithWeightDtosLikeDummyEtf1() {
+        StockWithWeightDto microsoftDto = getStockWIthWeightDtoForStock(generateMicrosoftStock(), 12.3f);
+        StockWithWeightDto appleDto = getStockWIthWeightDtoForStock(generateAppleStock(),8.9f);
+
+        return List.of(microsoftDto, appleDto);
+    }
+
+    private static StockWithWeightDto getStockWIthWeightDtoForStock(Stock stock, float weight) {
+        StockWithWeightDto dto = new StockWithWeightDto();
+        dto.isin = stock.getIsin();
+        dto.name = stock.getName();
+        dto.symbol = stock.getSymbol();
+        dto.weight = weight;
+
+        return dto;
     }
 }

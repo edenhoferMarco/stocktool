@@ -27,9 +27,9 @@ public class DummyDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        createDummyData();
-        deleteDummyData();
-        deleteStocksWithNoEtf();
+        //createDummyData();
+        //deleteDummyData();
+        //deleteStocksWithNoEtf();
     }
 
     @Transactional

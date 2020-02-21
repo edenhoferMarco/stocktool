@@ -1,4 +1,4 @@
-package de.marcoedenhofer.stocktool.service.csvingestor;
+package de.marcoedenhofer.stocktool.service.csvingestor.impl;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 

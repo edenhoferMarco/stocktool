@@ -1,4 +1,4 @@
-package de.marcoedenhofer.stocktool.service.csvingestor;
+package de.marcoedenhofer.stocktool.service.csvingestor.api;
 
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 
