@@ -1,0 +1,65 @@
+:root {
+    --brand-image-container-height: 100px;
+    --brand-image-container-bottom-margin: 20px;
+    --footer-height: 128px;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    height: 100%;
+}
+
+#content-container {
+    height: 100%;
+    margin: 0;
+}
+
+#brand-image-container {
+    height: var(--brand-image-container-height);
+}
+
+#left-bar {
+    height: 100%;
+}
+
+#etf-list-container {
+    height: calc(100% - var(--footer-height) - var(--brand-image-container-height) - var(--brand-image-container-bottom-margin));
+    margin-bottom: 0;
+}
+
+#etf-list {
+    overflow: auto;
+}
+
+#right-container {
+    height: 100%;
+}
+
+#comparison-container {
+    height: calc(100% - var(--footer-height));
+    margin-bottom: 0;
+}
+
+.collection {
+    border: 0 !important;
+}
+
+.collection-item {
+    margin: 4px 0 !important;
+}
+
+.fab-footer {
+    height: var(--footer-height);
+    margin-bottom: 0;
+}
+
+.margin-fab {
+    margin: 36px;
+}
+
+#etf-info-container {
+    height: var(--brand-image-container-height);
+}

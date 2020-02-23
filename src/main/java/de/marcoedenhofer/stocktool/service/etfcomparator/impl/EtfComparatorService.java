@@ -30,9 +30,9 @@ public class EtfComparatorService implements IEtfComparatorService {
                 .collect(Collectors.toList());
 
         final Predicate<IncludedStock> stockIsInCommonWithOtherEtf = includedStock ->
-                otherEtfStocksIsin.stream().anyMatch(s -> includedStock.getStock().getIsin().equalsIgnoreCase(s));
+                otherEtfStocksIsin.parallelStream().anyMatch(s -> includedStock.getStock().getIsin().equalsIgnoreCase(s));
 
-        return etf.getStocks().stream()
+        return etf.getStocks().parallelStream()
                 .filter(stockIsInCommonWithOtherEtf)
                 .map(IncludedStock::getStock)
                 .collect(Collectors.toUnmodifiableList());
@@ -45,7 +45,7 @@ public class EtfComparatorService implements IEtfComparatorService {
         final Predicate<IncludedStock> stockIsRelevant = includedStock ->
                 stocks.stream().anyMatch(stock -> includedStock.getStock().getIsin().equalsIgnoreCase(stock.getIsin()));
 
-        return etf.getStocks().stream()
+        return etf.getStocks().parallelStream()
                 .filter(stockIsRelevant)
                 .map(includedStock -> {
                     StockWithWeightDto stockWithWeightDto = new StockWithWeightDto();
