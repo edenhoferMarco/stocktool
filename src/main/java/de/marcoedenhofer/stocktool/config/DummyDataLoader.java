@@ -7,6 +7,7 @@ import de.marcoedenhofer.stocktool.repository.IEtfRepository;
 import de.marcoedenhofer.stocktool.repository.IStockRepository;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Component
+@Profile("!test")
 public class DummyDataLoader implements ApplicationRunner {
 
     final private IStockRepository stockRepository;
@@ -27,7 +29,7 @@ public class DummyDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        //createDummyData();
+        createDummyData();
         //deleteDummyData();
         //deleteStocksWithNoEtf();
     }
@@ -55,14 +57,19 @@ public class DummyDataLoader implements ApplicationRunner {
         // stockRepository.save(appleStock);
 
         Etf etf1 = new Etf();
-        etf1.setIsin("DEISINABC123");
-        etf1.setWkn("ABC123");
+        etf1.setIsin("DEISINABC001");
+        etf1.setWkn("ABC001");
         etf1.setName("Dummy ETF No. 1");
 
         Etf etf2 = new Etf();
-        etf2.setIsin("DEISINDEF456");
-        etf2.setWkn("DEF456");
+        etf2.setIsin("DEISINDEF002");
+        etf2.setWkn("DEF002");
         etf2.setName("Dummy ETF No. 2");
+
+        Etf etf3 = new Etf();
+        etf3.setIsin("DEISINDEF003");
+        etf3.setWkn("DEF003");
+        etf3.setName("Dummy ETF No. 3");
 
         IncludedStock includedMicrosoftStock1 = new IncludedStock();
         includedMicrosoftStock1.setStock(microsoftStock);
@@ -90,8 +97,12 @@ public class DummyDataLoader implements ApplicationRunner {
         etf2.getStocks().add(includedMicrosoftStock2);
         etf2.getStocks().add(includedAppleStock);
 
+        etf3.getStocks().add((includedNvidiaStock));
+        etf3.getStocks().add(includedAppleStock);
+
         etf1 = etfRepository.save(etf1);
         etf2 = etfRepository.save(etf2);
+        etf3 = etfRepository.save(etf3);
 
     }
 

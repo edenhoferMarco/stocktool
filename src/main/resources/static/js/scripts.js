@@ -43,9 +43,9 @@ function toggleCompareState(event, elementIndex) {
 
 function getHighlightCssClassBasedOnIndex(index) {
     if (index === 0) {
-        return "indigo";
+        return "grey";
     } else {
-        return "indigo";
+        return "grey";
     }
 }
 
@@ -71,6 +71,6 @@ function compare() {
     if (positionIsOccupied(0) && positionIsOccupied(1)) {
         let etfIsin = etfsToCompare[0];
         let otherEtfIsin = etfsToCompare[1];
-        window.location.href="/compare?etf=" + etfIsin + "&otherEtf=" + otherEtfIsin;
+        window.location.href="/?etf=" + etfIsin + "&otherEtf=" + otherEtfIsin;
     }
 }

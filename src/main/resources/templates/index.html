@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <!-- Google Fonts -->
@@ -9,7 +9,7 @@
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <!-- custom css -->
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel='stylesheet' type='text/css' media='screen' th:href="@{/css/styles.css}">
     <title>Stocktool</title>
 </head>
 <body>
@@ -22,57 +22,24 @@
             <div id="etf-list-container" class="row">
                 <div class="col s12">
                     <ul id="etf-list" class="collection">
-                        <li class="collection-item waves-effect waves-block waves-purple black">
+                        <li th:each="etf: ${etfs}" class="collection-item waves-effect waves-block blue-grey darken-4">
                             <div class="etf-entry white-text">
                                 <div class="row">
                                     <div class="col s12">
-                                        <span>Dummy Etf No. 1</span>
+                                        <span th:text="${etf.getName()}"></span>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s7">
-                                        <span class="isin-container">US0378331005</span>
+                                        <span th:text="${etf.getIsin()}" class="isin-container"></span>
                                     </div>
                                     <div class="col s5">
-                                        <span class="wkn-cpntainer">WKN123ETF4</span>
+                                        <span th:text="${etf.getWkn()}" class="wkn-container">WKN123ETF4</span>
                                     </div>
                                 </div>
                             </div>
                         </li>
-                        <li class="collection-item">
-                            <div class="etf-entry">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <span>Dummy Etf No. 2</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s7">
-                                        <span>US0378331006</span>
-                                    </div>
-                                    <div class="col s5">
-                                        <span>WKN123ETF4</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="collection-item">
-                            <div class="etf-entry">
-                                <div class="row">
-                                    <div class="col s12">
-                                        <span>Dummy Etf No. 3</span>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col s7">
-                                        <span>US0378331007</span>
-                                    </div>
-                                    <div class="col s5">
-                                        <span>WKN123ETF4</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </li>
+
                     </ul>
                 </div>
             </div>
@@ -88,34 +55,34 @@
         <div id="right-container" class="col s9 center-align blue-grey lighten-5">
             <div id="comparison-container" class="row">
                 <div class="col s12 z-depth-0">
-                    <div id="etf-info-container" class="row">
+                    <div th:if="${etfDetailsWithCommonStocks != null && otherEtfDetailsWithCommonStocks != null}" id="etf-info-container" class="row">
                         <div class="col s6 indigo lighten-4">
                             <div class="row">
                                 <div class="col s12">
-                                    <span><strong>Dummy Etf No.1</strong></span>
+                                    <span th:text="${etfDetailsWithCommonStocks.name}"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s7">
-                                    <span class="isin-container">US0378331005</span>
+                                    <span th:text="${etfDetailsWithCommonStocks.isin}" class="isin-container"></span>
                                 </div>
                                 <div class="col s5">
-                                    <span class="wkn-cpntainer">WKN123ETF4</span>
+                                    <span th:text="${etfDetailsWithCommonStocks.wkn}" class="wkn-cpntainer"></span>
                                 </div>
                             </div>
                         </div>
                         <div class="col s6 indigo lighten-5">
                             <div class="row">
                                 <div class="col s12">
-                                    <span>Dummy Etf No.2</span>
+                                    <span th:text="${otherEtfDetailsWithCommonStocks.name}"></span>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col s7">
-                                    <span class="isin-container">US0378331006</span>
+                                    <span th:text="${otherEtfDetailsWithCommonStocks.isin}" class="isin-container"></span>
                                 </div>
                                 <div class="col s5">
-                                    <span class="wkn-cpntainer">WKN123ETF4</span>
+                                    <span th:text="${otherEtfDetailsWithCommonStocks.wkn}" class="wkn-cpntainer"></span>
                                 </div>
                             </div>
                         </div>
@@ -138,6 +105,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script src="js/init_sidenav.js"></script>
+<script th:src="@{/js/scripts.js}"></script>
 </body>
 </html>
