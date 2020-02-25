@@ -1,5 +1,5 @@
 :root {
-    --brand-image-container-height: 100px;
+    --brand-image-container-height: 160px;
     --brand-image-container-bottom-margin: 20px;
     --footer-height: 128px;
 }
@@ -19,6 +19,10 @@ body {
 
 #brand-image-container {
     height: var(--brand-image-container-height);
+}
+
+#brand-logo {
+    max-height: var(--brand-image-container-height);
 }
 
 #left-bar {
@@ -49,6 +53,7 @@ body {
 
 .collection-item {
     margin: 4px 0 !important;
+    border: 0 !important;
 }
 
 .fab-footer {
@@ -62,4 +67,22 @@ body {
 
 #etf-info-container {
     height: var(--brand-image-container-height);
+}
+
+#stock-info-container {
+    overflow: auto;
+}
+
+.border-right {
+    border-right: dimgrey;
+    border-width: 1px;
+    border-right-style: solid;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.ml-2 {
+    margin-left: 2em !important;
 }

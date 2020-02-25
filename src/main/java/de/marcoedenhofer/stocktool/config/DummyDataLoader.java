@@ -86,10 +86,20 @@ public class DummyDataLoader implements ApplicationRunner {
         includedNvidiaStock.setEtf(etf1);
         includedNvidiaStock.setWeight(10.1f);
 
+        IncludedStock includedNvidiaStock2 = new IncludedStock();
+        includedNvidiaStock2.setStock(nvidiaStock);
+        includedNvidiaStock2.setEtf(etf3);
+        includedNvidiaStock2.setWeight(11.1f);
+
         IncludedStock includedAppleStock = new IncludedStock();
         includedAppleStock.setStock(appleStock);
         includedAppleStock.setEtf(etf2);
         includedAppleStock.setWeight(8.8f);
+
+        IncludedStock includedAppleStock2 = new IncludedStock();
+        includedAppleStock2.setStock(appleStock);
+        includedAppleStock2.setEtf(etf3);
+        includedAppleStock2.setWeight(9.4f);
 
         etf1.getStocks().add(includedMicrosoftStock1);
         etf1.getStocks().add(includedNvidiaStock);
@@ -97,8 +107,8 @@ public class DummyDataLoader implements ApplicationRunner {
         etf2.getStocks().add(includedMicrosoftStock2);
         etf2.getStocks().add(includedAppleStock);
 
-        etf3.getStocks().add((includedNvidiaStock));
-        etf3.getStocks().add(includedAppleStock);
+        etf3.getStocks().add((includedNvidiaStock2));
+        etf3.getStocks().add(includedAppleStock2);
 
         etf1 = etfRepository.save(etf1);
         etf2 = etfRepository.save(etf2);

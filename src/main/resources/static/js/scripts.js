@@ -23,7 +23,7 @@ function toggleCompareState(event, elementIndex) {
     let indexOfElement = etfsToCompare.indexOf(etfIsin);
 
     if (indexOfElement !== -1) {
-        element.classList.remove(getHighlightCssClassBasedOnIndex(indexOfElement), "lighten-1");
+        element.classList.remove(getHighlightCssClassBasedOnIndex(indexOfElement), "lighten-3", "indigo-text", "text-lighten-1");
         etfsToCompare[indexOfElement] = "";
         indexToInsertIsin = indexOfElement;
         togglePulseEffect();
@@ -34,7 +34,7 @@ function toggleCompareState(event, elementIndex) {
             indexToInsertIsin = 0;
         }
         etfsToCompare[indexToInsertIsin] = etfIsin;
-        element.classList.add(getHighlightCssClassBasedOnIndex(indexToInsertIsin), "lighten-1");
+        element.classList.add(getHighlightCssClassBasedOnIndex(indexToInsertIsin), "lighten-3", "indigo-text", "text-lighten-1");
         // invert so if index was 0, ist is 1, or vice versa
         indexToInsertIsin = indexToInsertIsin ^ 1;
         togglePulseEffect();

@@ -46,7 +46,7 @@ public class MainScreenController {
                 List<StockWithWeightDto> commonStocksWithWeightForOtherEtf =
                         etfManagementService.getStocksWithWeightingInEtf(commonStocks,otherEtf);
 
-                etfDto = new EtfDto(etf.getName(), etf.getIsin(), etf.getIsin(), commonStocksWithWeightForEtf);
+                etfDto = new EtfDto(etf.getName(), etf.getIsin(), etf.getWkn(), commonStocksWithWeightForEtf);
                 otherEtfDto = new EtfDto(otherEtf.getName(), otherEtf.getIsin(), otherEtf.getWkn(),
                         commonStocksWithWeightForOtherEtf);
             } catch (NoSuchElementException noElemException) {
