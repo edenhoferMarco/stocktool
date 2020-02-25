@@ -4,11 +4,13 @@ import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.model.Etf;
 import de.marcoedenhofer.stocktool.model.Stock;
 import de.marcoedenhofer.stocktool.repository.IEtfRepository;
+import de.marcoedenhofer.stocktool.service.csvingestor.impl.CsvIngestionService;
 import de.marcoedenhofer.stocktool.service.etfcomparator.api.IEtfComparatorService;
 import de.marcoedenhofer.stocktool.service.etfmanagement.api.IEtfManagementService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -18,10 +20,13 @@ import java.util.NoSuchElementException;
 public class EtfManagementService implements IEtfManagementService {
     private final IEtfRepository etfRepository;
     private final IEtfComparatorService etfComparatorService;
+    private final CsvIngestionService csvIngestionService;
 
-    public EtfManagementService(IEtfRepository etfRepository, IEtfComparatorService etfComparatorService) {
+    public EtfManagementService(IEtfRepository etfRepository, IEtfComparatorService etfComparatorService,
+                                CsvIngestionService csvIngestionService) {
         this.etfRepository = etfRepository;
         this.etfComparatorService = etfComparatorService;
+        this.csvIngestionService = csvIngestionService;
     }
 
     @Override
@@ -36,6 +41,11 @@ public class EtfManagementService implements IEtfManagementService {
     @Override
     public Etf getEtfWithIsin(String isin) throws NoSuchElementException{
         return etfRepository.getEtfByIsin(isin).orElseThrow(() -> new NoSuchElementException("No ETF with ISIN: " + isin + " exists."));
+    }
+
+    @Override
+    public Etf createEtf(Etf etfDetails, InputStream stockCsvInputStream) {
+        return csvIngestionService.createEtfWithCsvFromStream(etfDetails, stockCsvInputStream);
     }
 
     @Override

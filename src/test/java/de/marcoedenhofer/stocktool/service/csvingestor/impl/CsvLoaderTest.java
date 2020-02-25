@@ -4,6 +4,7 @@ import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
 import org.junit.jupiter.api.Test;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -17,7 +18,7 @@ class CsvLoaderTest {
     private final ICsvLoader csvLoader = new CsvLoader();
 
     @Test
-    void loadCsvFromPath() {
+    void loadCsvFromPath() throws FileNotFoundException {
         Path pathToTestCsv = Paths.get("src","test","resources", "test_stocks.csv");
         StockWithWeightDto referenceDto = new StockWithWeightDto();
         referenceDto.name = "Microsoft";

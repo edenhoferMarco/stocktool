@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
@@ -31,7 +32,7 @@ class CsvIngestionServiceTest {
     }
 
     @Test
-    void createEtfWithCsv_EtfIsPersistedInDatabase() {
+    void createEtfWithCsv_EtfIsPersistedInDatabase() throws FileNotFoundException {
         Etf dummyEtf = DummyDataGenerator.generateDummyEtf1();
         List<IncludedStock> dummyStocks = List.copyOf(dummyEtf.getStocks());
         dummyEtf.setStocks(Collections.emptyList());
@@ -45,7 +46,7 @@ class CsvIngestionServiceTest {
             }
         };
 
-        csvIngestionService.createEtfWithCsv(dummyEtf, Path.of("testpath"));
+        csvIngestionService.createEtfWithCsvFromPath(dummyEtf, Path.of("testpath"));
 
         assertThat(etfRepository.count(), is(1L));
 

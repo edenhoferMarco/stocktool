@@ -10,6 +10,8 @@ import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,12 +28,26 @@ public class CsvIngestionService implements ICsvIngestionService {
 
     @Override
     @Transactional
-    public Etf createEtfWithCsv(Etf etfDetails, Path pathToCsv) {
+    public Etf createEtfWithCsvFromPath(Etf etfDetails, Path pathToCsv) throws FileNotFoundException {
         Etf etfToCreate = new Etf();
         etfToCreate.setName(etfDetails.getName());
         etfToCreate.setWkn(etfDetails.getWkn());
         etfToCreate.setIsin(etfDetails.getIsin());
         List<StockWithWeightDto> stockWithWeightDtos = csvLoader.loadCsvFromPath(pathToCsv);
+
+        etfToCreate.setStocks(transformDtosToIncludedStocks(stockWithWeightDtos,etfToCreate));
+
+        return etfRepository.save(etfToCreate);
+    }
+
+    @Override
+    @Transactional
+    public Etf createEtfWithCsvFromStream(Etf etfDetails, InputStream csvFileInputStream) {
+        Etf etfToCreate = new Etf();
+        etfToCreate.setName(etfDetails.getName());
+        etfToCreate.setWkn(etfDetails.getWkn());
+        etfToCreate.setIsin(etfDetails.getIsin());
+        List<StockWithWeightDto> stockWithWeightDtos = csvLoader.loadCsvFromInputStream(csvFileInputStream);
 
         etfToCreate.setStocks(transformDtosToIncludedStocks(stockWithWeightDtos,etfToCreate));
 

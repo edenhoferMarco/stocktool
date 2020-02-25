@@ -7,8 +7,7 @@ import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
 import org.springframework.stereotype.Component;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
@@ -36,16 +35,17 @@ public class CsvLoader implements ICsvLoader {
     };
 
     @Override
-    public List<StockWithWeightDto> loadCsvFromPath(Path pathToCsv) {
+    public List<StockWithWeightDto> loadCsvFromPath(Path pathToCsv) throws FileNotFoundException {
         File csvFile = new File(pathToCsv.toUri());
 
-        return loadCsv(csvFile);
+        return loadCsv(new FileInputStream(csvFile));
     }
 
     @Override
-    public List<StockWithWeightDto> loadCsvFromFile(File csvFile) {
-        return loadCsv(csvFile);
+    public List<StockWithWeightDto> loadCsvFromInputStream(InputStream csvFileInputStream) {
+        return loadCsv(csvFileInputStream);
     }
+
 
     private StringBuilder removePercentSign(StringBuilder input) {
         StringBuilder output;
@@ -61,11 +61,11 @@ public class CsvLoader implements ICsvLoader {
         return output;
     }
 
-    List<StockWithWeightDto> loadCsv(File csvFile) {
+    List<StockWithWeightDto> loadCsv(InputStream csvFileInputStream) {
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = csvMapper.schemaFor(CsvStockEntry.class);
         try {
-            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFile);
+            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFileInputStream);
             List<CsvStockEntry> stocks = it.readAll();
 
             return stocks.stream()

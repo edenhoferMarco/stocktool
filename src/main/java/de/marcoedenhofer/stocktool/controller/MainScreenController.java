@@ -15,6 +15,7 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class MainScreenController {
+    private final String ETF_TO_CREATE_MODEL_KEYWORD = "etfToCreate";
     private final String ETFS_MODEL_KEYWORD = "etfs";
     private final String ETF_COMMON_STOCKS_MODEL_KEYWORD = "etfDetailsWithCommonStocks";
     private final String OTHER_ETF_COMMON_STOCKS_MODEL_KEYWORD = "otherEtfDetailsWithCommonStocks";
@@ -31,6 +32,8 @@ public class MainScreenController {
                           Model model) {
         List<Etf> etfs = etfManagementService.getAllEtfs();
         model.addAttribute(ETFS_MODEL_KEYWORD, etfs);
+
+        Etf etfToCreate = new Etf();
 
         EtfDto etfDto = null;
         EtfDto otherEtfDto = null;
@@ -56,6 +59,7 @@ public class MainScreenController {
 
         model.addAttribute(ETF_COMMON_STOCKS_MODEL_KEYWORD, etfDto);
         model.addAttribute(OTHER_ETF_COMMON_STOCKS_MODEL_KEYWORD, otherEtfDto);
+        model.addAttribute(ETF_TO_CREATE_MODEL_KEYWORD,etfToCreate);
 
         return "index";
     }

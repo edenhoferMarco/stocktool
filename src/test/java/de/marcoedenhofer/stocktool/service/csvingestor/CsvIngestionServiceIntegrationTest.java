@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +32,7 @@ public class CsvIngestionServiceIntegrationTest {
     }
 
     @Test
-    void createEtfWithCsv() {
+    void createEtfWithCsv() throws FileNotFoundException {
         Path pathToTestCsvFile = Path.of("src", "test", "resources", "test_stocks.csv");
         Etf etfDetails = new Etf();
         etfDetails.setIsin("ISIN2TEST");
@@ -56,7 +57,7 @@ public class CsvIngestionServiceIntegrationTest {
         appleStock.setSymbol("AAPL");
         final float appleWeight = 8.7f;
 
-        Etf createdEtf = csvIngestionService.createEtfWithCsv(etfDetails, pathToTestCsvFile);
+        Etf createdEtf = csvIngestionService.createEtfWithCsvFromPath(etfDetails, pathToTestCsvFile);
         List<Stock> stocks = createdEtf.getStocks().stream()
                 .map(IncludedStock::getStock)
                 .collect(Collectors.toList());
