@@ -38,19 +38,13 @@ public class CsvLoader implements ICsvLoader {
     @Override
     public List<StockWithWeightDto> loadCsvFromPath(Path pathToCsv) {
         File csvFile = new File(pathToCsv.toUri());
-        CsvMapper csvMapper = new CsvMapper();
-        CsvSchema csvSchema = csvMapper.schemaFor(CsvStockEntry.class);
-        try {
-            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFile);
-            List<CsvStockEntry> stocks = it.readAll();
 
-            return stocks.stream()
-                    .map(csvEntryToStockWithWeightInFloat)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
+        return loadCsv(csvFile);
+    }
+
+    @Override
+    public List<StockWithWeightDto> loadCsvFromFile(File csvFile) {
+        return loadCsv(csvFile);
     }
 
     private StringBuilder removePercentSign(StringBuilder input) {
@@ -65,6 +59,22 @@ public class CsvLoader implements ICsvLoader {
         }
 
         return output;
+    }
+
+    List<StockWithWeightDto> loadCsv(File csvFile) {
+        CsvMapper csvMapper = new CsvMapper();
+        CsvSchema csvSchema = csvMapper.schemaFor(CsvStockEntry.class);
+        try {
+            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFile);
+            List<CsvStockEntry> stocks = it.readAll();
+
+            return stocks.stream()
+                    .map(csvEntryToStockWithWeightInFloat)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return Collections.emptyList();
+        }
     }
 
     private StringBuilder removeQuotes(StringBuilder string) {

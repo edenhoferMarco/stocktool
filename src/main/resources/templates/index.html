@@ -13,6 +13,59 @@
     <title>Stocktool</title>
 </head>
 <body>
+    <!-- ADD ETF MODAL -->
+    <div id="add-etf-modal" class="modal white">
+        <div class="modal-content">
+            <div class="row">
+                <form th:action="@{/addEtf}" method="post" class="col s12">
+                    <div class="row">
+                        <div class="col s12">
+                            <h4>Add ETF</h4>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="row">
+                                <div class="input-field col s7">
+                                    <input placeholder="Xtrackers MSCI World" id="etf-name" type="text" class="validate">
+                                    <label for="etf-name">ETF Display Name</label>
+                                </div>
+                                <div class="input-field col s3">
+                                    <input placeholder="IE00BJ0KDQ92" id="etf-isin" type="text" class="validate">
+                                    <label for="etf-isin">ISIN</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <input placeholder="A1XB5U" id="etf-wkn" type="text" class="validate">
+                                    <label for="etf-wkn">WKN</label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s7">
+                                    <div class="file-field input-field">
+                                        <div class="btn waves-effect indigo lighten-1">
+                                            <span>Upload CSV</span>
+                                            <input type="file" name="csv-input" accept="text/csv">
+                                        </div>
+                                        <div class="file-path-wrapper">
+                                            <input class="file-path validate" type="text" placeholder="Upload file">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col s12 right-align">
+                                    <button class="btn btn-large waves-effect indigo lighten-1" type="submit" name="sumbit-etf-button" th:action="@{/}">Add ETF
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div id="content-container" class="row">
         <!-- LEFT CONTAINER START -->
         <div id="left-bar" class="col s3 blue-grey darken-4">
@@ -44,7 +97,7 @@
                 </div>
             </div>
             <div id="left-footer" class="fab-footer row right-align">
-                <a id="add-etf-button" class="btn-floating btn-large waves-effect waves-light indigo lighten-1 margin-fab">
+                <a id="add-etf-button" class="btn-floating btn-large waves-effect indigo lighten-1 margin-fab modal-trigger" href="#add-etf-modal">
                     <i class="material-icons">add</i>
                 </a>
             </div>
@@ -133,7 +186,7 @@
             </div>
 
             <div id="right-footer" class="fab-footer row right-align indigo lighten-5">
-                <a id="compare-etf-button" class="btn-floating btn-large waves-effect waves-light grey margin-fab">
+                <a id="compare-etf-button" class="btn-floating btn-large waves-effect grey margin-fab">
                     <i class="material-icons">check</i>
                 </a>
             </div>
