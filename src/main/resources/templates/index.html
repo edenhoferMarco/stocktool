@@ -17,7 +17,7 @@
     <div id="add-etf-modal" class="modal white">
         <div class="modal-content">
             <div class="row">
-                <form th:action="@{/addEtf}" th:object="${etfToCreate}" method="post" class="col s12">
+                <form th:action="@{/addEtf}" th:object="${etfToCreate}" method="post" enctype="multipart/form-data" class="col s12">
                     <div class="row">
                         <div class="col s12">
                             <h4>Add ETF</h4>
@@ -44,7 +44,7 @@
                                     <div class="file-field input-field">
                                         <div class="btn waves-effect indigo lighten-1">
                                             <span>Upload CSV</span>
-                                            <input type="file" name="csv-input" accept="text/csv">
+                                            <input name="stocksCsvFile" type="file" accept="text/csv">
                                         </div>
                                         <div class="file-path-wrapper">
                                             <input class="file-path validate" type="text" placeholder="Upload file">
@@ -120,7 +120,7 @@
                                     <span th:text="${etfDetailsWithCommonStocks.isin}" class="isin-container"></span>
                                 </div>
                                 <div class="col s5">
-                                    <span th:text="${etfDetailsWithCommonStocks.wkn}" class="wkn-cpntainer"></span>
+                                    <span th:text="${etfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + etfStockCount}" class="wkn-cpntainer"></span>
                                 </div>
                             </div>
                         </div>
@@ -135,7 +135,7 @@
                                     <span th:text="${otherEtfDetailsWithCommonStocks.isin}" class="isin-container"></span>
                                 </div>
                                 <div class="col s5">
-                                    <span th:text="${otherEtfDetailsWithCommonStocks.wkn}" class="wkn-cpntainer"></span>
+                                    <span th:text="${otherEtfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + otherEtfStockCount}" class="wkn-cpntainer"></span>
                                 </div>
                             </div>
                         </div>
@@ -144,40 +144,38 @@
                         <div class="col s6 border-right">
                             <div class="row">
                                 <ul>
-                                    <li th:each="etfStock: ${etfDetailsWithCommonStocks.stockWithWeightDtos}">
-                                        <div class="col s3 offset-s2 text-bold">
-                                            <span th:text="${etfStock.name}"></span>
-                                        </div>
-                                        <div class="col s3">
-                                            <span th:text="${etfStock.isin}"></span>
-                                        </div>
-                                        <div class="col s2">
-                                            <span th:text="${etfStock.symbol}"></span>
-                                        </div>
-                                        <div class="col s2">
-                                            <span th:text="${etfStock.weight} + '%'"></span>
-                                        </div>
-                                    </li>
+                                    <div class="col s12">
+                                        <li th:each="etfStock: ${etfDetailsWithCommonStocks.stockWithWeightDtos}" class="row">
+                                            <div class="col s3 offset-s4 text-bold">
+                                                <span th:text="${etfStock.name}"></span>
+                                            </div>
+                                            <div class="col s3">
+                                                <span th:text="${etfStock.isin}"></span>
+                                            </div>
+                                            <div class="col s2">
+                                                <span th:text="${etfStock.weight} + '%'"></span>
+                                            </div>
+                                        </li>
+                                    </div>
                                 </ul>
                             </div>
                         </div>
                         <div class="col s6">
                             <div class="row right-align">
                                 <ul>
-                                    <li th:each="otherEtfStock: ${otherEtfDetailsWithCommonStocks.stockWithWeightDtos}">
-                                        <div class="col s2">
-                                            <span th:text="${otherEtfStock.weight} + '%'"></span>
-                                        </div>
-                                        <div class="col s2">
-                                            <span th:text="${otherEtfStock.symbol}"></span>
-                                        </div>
-                                        <div class="col s3">
-                                            <span th:text="${otherEtfStock.isin}"></span>
-                                        </div>
-                                        <div class="col s3 text-bold">
-                                            <span th:text="${otherEtfStock.name}"></span>
-                                        </div>
-                                    </li>
+                                    <div class="col s12">
+                                        <li th:each="otherEtfStock: ${otherEtfDetailsWithCommonStocks.stockWithWeightDtos}" class="row">
+                                            <div class="col s2">
+                                                <span th:text="${otherEtfStock.weight} + '%'"></span>
+                                            </div>
+                                            <div class="col s3">
+                                                <span th:text="${otherEtfStock.isin}"></span>
+                                            </div>
+                                            <div class="col s3 text-bold">
+                                                <span th:text="${otherEtfStock.name}"></span>
+                                            </div>
+                                        </li>
+                                    </div>
                                 </ul>
                             </div>
                         </div>

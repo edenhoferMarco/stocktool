@@ -21,7 +21,8 @@ public class CsvLoader implements ICsvLoader {
         StringBuilder trimmedWeight = new StringBuilder(csvStockEntry.weight.trim());
         StringBuilder stringWithoutPercentSign = removePercentSign(trimmedWeight);
         StringBuilder stringWithoutQuotes = removeQuotes(stringWithoutPercentSign);
-        String cleanedString = stringWithoutQuotes.toString().trim();
+        StringBuilder stringWithDotDelimiters = changeFloatCommaDelimiterToDots(stringWithoutQuotes);
+        String cleanedString = stringWithDotDelimiters.toString().trim();
 
         float weight = Float.parseFloat(cleanedString);
 
@@ -83,6 +84,17 @@ public class CsvLoader implements ICsvLoader {
         // while input hast at least one <"> left
         while ((index = string.indexOf("\"")) != -1) {
             string.deleteCharAt(index);
+        }
+
+        return string;
+    }
+
+    private StringBuilder changeFloatCommaDelimiterToDots(StringBuilder string) {
+        int index;
+
+        // while input hast at least one <"> left
+        while ((index = string.indexOf(",")) != -1) {
+            string.replace(index,index + 1,".");
         }
 
         return string;

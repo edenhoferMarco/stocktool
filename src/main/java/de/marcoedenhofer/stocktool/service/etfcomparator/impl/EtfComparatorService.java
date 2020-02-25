@@ -8,6 +8,7 @@ import de.marcoedenhofer.stocktool.repository.IEtfRepository;
 import de.marcoedenhofer.stocktool.service.etfcomparator.api.IEtfComparatorService;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -45,7 +46,7 @@ public class EtfComparatorService implements IEtfComparatorService {
         final Predicate<IncludedStock> stockIsRelevant = includedStock ->
                 stocks.stream().anyMatch(stock -> includedStock.getStock().getIsin().equalsIgnoreCase(stock.getIsin()));
 
-        return etf.getStocks().parallelStream()
+        return etf.getStocks().stream()
                 .filter(stockIsRelevant)
                 .map(includedStock -> {
                     StockWithWeightDto stockWithWeightDto = new StockWithWeightDto();
@@ -56,6 +57,7 @@ public class EtfComparatorService implements IEtfComparatorService {
 
                     return stockWithWeightDto;
                 })
+                .sorted(Comparator.comparing(o -> o.name))
                 .collect(Collectors.toList());
     }
 }

@@ -15,6 +15,8 @@ import java.util.NoSuchElementException;
 
 @Controller
 public class MainScreenController {
+    private final String ETF_STOCKCOUNT_MODEL_KEYWORD = "etfStockCount";
+    private final String OTHER_ETF_STOCKCOUNT_MODEL_KEYWORD = "otherEtfStockCount";
     private final String ETF_TO_CREATE_MODEL_KEYWORD = "etfToCreate";
     private final String ETFS_MODEL_KEYWORD = "etfs";
     private final String ETF_COMMON_STOCKS_MODEL_KEYWORD = "etfDetailsWithCommonStocks";
@@ -38,10 +40,15 @@ public class MainScreenController {
         EtfDto etfDto = null;
         EtfDto otherEtfDto = null;
 
+        int etfStockCount = 0;
+        int otherEtfStockCount = 0;
+
         if (etfIsin != null && otherEtfIsin != null) {
             try {
                 Etf etf = etfManagementService.getEtfWithIsin(etfIsin);
+                etfStockCount = etf.getStocks().size();
                 Etf otherEtf = etfManagementService.getEtfWithIsin(otherEtfIsin);
+                otherEtfStockCount = otherEtf.getStocks().size();
 
                 List<Stock> commonStocks = etfManagementService.getCommonStocks(etf,otherEtf);
                 List<StockWithWeightDto> commonStocksWithWeightForEtf =
@@ -60,6 +67,8 @@ public class MainScreenController {
         model.addAttribute(ETF_COMMON_STOCKS_MODEL_KEYWORD, etfDto);
         model.addAttribute(OTHER_ETF_COMMON_STOCKS_MODEL_KEYWORD, otherEtfDto);
         model.addAttribute(ETF_TO_CREATE_MODEL_KEYWORD,etfToCreate);
+        model.addAttribute(ETF_STOCKCOUNT_MODEL_KEYWORD,etfStockCount);
+        model.addAttribute(OTHER_ETF_STOCKCOUNT_MODEL_KEYWORD,otherEtfStockCount);
 
         return "index";
     }

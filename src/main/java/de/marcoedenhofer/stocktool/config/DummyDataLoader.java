@@ -29,7 +29,7 @@ public class DummyDataLoader implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        createDummyData();
+        //createDummyData();
         //deleteDummyData();
         //deleteStocksWithNoEtf();
     }

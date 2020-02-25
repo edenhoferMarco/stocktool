@@ -32,6 +32,8 @@ body {
 #etf-list-container {
     height: calc(100% - var(--footer-height) - var(--brand-image-container-height) - var(--brand-image-container-bottom-margin));
     margin-bottom: 0;
+    overflow: auto;
+
 }
 
 #etf-list {
