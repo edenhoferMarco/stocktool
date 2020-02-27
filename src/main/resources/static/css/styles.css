@@ -44,11 +44,6 @@ body {
     height: 100%;
 }
 
-#comparison-container {
-    height: calc(100% - var(--footer-height));
-    margin-bottom: 0;
-}
-
 .collection {
     border: 0 !important;
 }
@@ -72,6 +67,8 @@ body {
 }
 
 #stock-info-container {
+    height: calc(100% - var(--footer-height) - var(--brand-image-container-height) - var(--brand-image-container-bottom-margin));
+    margin-bottom: 0;
     overflow: auto;
 }
 

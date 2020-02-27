@@ -106,41 +106,43 @@
 
         <!-- RIGHT CONTAINER START -->
         <div id="right-container" class="col s9 center-align indigo lighten-5">
-            <div id="comparison-container" class="row">
-                <div th:if="${etfDetailsWithCommonStocks != null && otherEtfDetailsWithCommonStocks != null}" class="col s12 z-depth-0">
-                    <div id="etf-info-container" class="row valign-wrapper">
-                        <div class="col s6 border-right">
-                            <div class="row">
-                                <div class="col s12">
-                                    <h5 th:text="${etfDetailsWithCommonStocks.name}"></h5>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col s7">
-                                    <span th:text="${etfDetailsWithCommonStocks.isin}" class="isin-container"></span>
-                                </div>
-                                <div class="col s5">
-                                    <span th:text="${etfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + etfStockCount}" class="wkn-cpntainer"></span>
-                                </div>
+            <div id="etf-info-container" class="row valign-wrapper">
+                <div th:if="${etfDetailsWithCommonStocks != null && otherEtfDetailsWithCommonStocks != null}" class="col s12">
+                    <div class="col s6 border-right">
+                        <div class="row center-align">
+                            <div class="col s12">
+                                <h5 th:text="${etfDetailsWithCommonStocks.name}"></h5>
                             </div>
                         </div>
-                        <div class="col s6">
-                            <div class="row">
-                                <div class="col s12">
-                                    <h5 th:text="${otherEtfDetailsWithCommonStocks.name}"></h5>
-                                </div>
+                        <div class="row">
+                            <div class="col s7">
+                                <span th:text="${etfDetailsWithCommonStocks.isin}" class="isin-container"></span>
                             </div>
-                            <div class="row">
-                                <div class="col s7">
-                                    <span th:text="${otherEtfDetailsWithCommonStocks.isin}" class="isin-container"></span>
-                                </div>
-                                <div class="col s5">
-                                    <span th:text="${otherEtfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + otherEtfStockCount}" class="wkn-cpntainer"></span>
-                                </div>
+                            <div class="col s5">
+                                <span th:text="${etfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + etfStockCount}" class="wkn-cpntainer"></span>
                             </div>
                         </div>
                     </div>
-                    <div id="stock-info-container" class="row left-align">
+                    <div class="col s6">
+                        <div class="row">
+                            <div class="col s12">
+                                <h5 th:text="${otherEtfDetailsWithCommonStocks.name}"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col s7">
+                                <span th:text="${otherEtfDetailsWithCommonStocks.isin}" class="isin-container"></span>
+                            </div>
+                            <div class="col s5">
+                                <span th:text="${otherEtfDetailsWithCommonStocks.stockWithWeightDtos.size() + ' / ' + otherEtfStockCount}" class="wkn-cpntainer"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="stock-info-container" class="row left-align">
+                <div th:if="${etfDetailsWithCommonStocks != null && otherEtfDetailsWithCommonStocks != null}">
+                    <div th:if="${etfDetailsWithCommonStocks.stockWithWeightDtos.size() > 0}">
                         <div class="col s6 border-right">
                             <div class="row">
                                 <ul>
@@ -178,6 +180,12 @@
                                     </div>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+
+                    <div th:unless="${etfDetailsWithCommonStocks.stockWithWeightDtos.size() > 0}">
+                        <div class="col s12 center-align">
+                            <span>The selected ETFs have no stocks in common!</span>
                         </div>
                     </div>
                 </div>
