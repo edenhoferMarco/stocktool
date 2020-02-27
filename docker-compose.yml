@@ -1,0 +1,35 @@
+version: "3.7"
+services:
+
+  stocktool:
+    container_name: stocktool-spring-backend
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "127.0.0.1:8080:8080"
+    networks:
+      - backend
+    depends_on:
+      - mariadb
+
+  mariadb:
+    container_name: mariadb-stocktool
+    image: mariadb:10.5
+    volumes:
+      - db-data:/var/lib/mariadb/data
+    environment:
+      MYSQL_ROOT_PASSWORD: changeme
+      MYSQL_DATABASE: stocktooldb
+      MYSQL_USER: stocktooluser
+      MYSQL_PASSWORD: changeme
+    ports:
+      - "127.0.0.1:3306:3306"
+    networks:
+      - backend
+
+networks:
+  backend:
+
+volumes:
+  db-data:
