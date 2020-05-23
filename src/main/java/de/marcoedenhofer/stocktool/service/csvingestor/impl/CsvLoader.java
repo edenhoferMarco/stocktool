@@ -28,7 +28,6 @@ public class CsvLoader implements ICsvLoader {
 
         StockWithWeightDto stockWithWeightDto = new StockWithWeightDto();
         stockWithWeightDto.weight = weight;
-        stockWithWeightDto.symbol = csvStockEntry.symbol;
         stockWithWeightDto.isin = csvStockEntry.isin;
         stockWithWeightDto.name = csvStockEntry.name;
 

@@ -36,25 +36,21 @@ public class CsvIngestionServiceIntegrationTest {
         Path pathToTestCsvFile = Path.of("src", "test", "resources", "test_stocks.csv");
         Etf etfDetails = new Etf();
         etfDetails.setIsin("ISIN2TEST");
-        etfDetails.setWkn("TESTWKN");
         etfDetails.setName("Test Etf for integration testing");
 
         Stock nvidiaStock = new Stock();
         nvidiaStock.setIsin("US67066G1040");
-        nvidiaStock.setSymbol("NVDA");
         nvidiaStock.setName("Nvidia");
         final float nvidiaWeight = 3.3f;
 
         Stock microsoftStock = new Stock();
         microsoftStock.setName("Microsoft");
-        microsoftStock.setSymbol("MSFT");
         microsoftStock.setIsin("US5949181045");
         final float microsoftWeight = 12.3f;
 
         Stock appleStock = new Stock();
         appleStock.setName("Apple");
         appleStock.setIsin("US0378331005");
-        appleStock.setSymbol("AAPL");
         final float appleWeight = 8.7f;
 
         Etf createdEtf = csvIngestionService.createEtfWithCsvFromPath(etfDetails, pathToTestCsvFile);

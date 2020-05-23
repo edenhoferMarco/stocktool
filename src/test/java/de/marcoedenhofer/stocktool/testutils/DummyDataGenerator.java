@@ -21,7 +21,6 @@ public class DummyDataGenerator {
         if (dummyEtf1 == null) {
             etf = new Etf();
             etf.setIsin("DEISINABC123");
-            etf.setWkn("ABC123");
             etf.setName("Dummy ETF No. 1");
 
             IncludedStock microsoft = generateIncludedStockWithWeightForEtf(generateMicrosoftStock(),12.3f, etf);
@@ -40,7 +39,6 @@ public class DummyDataGenerator {
         if (dummyEtf2 == null) {
             etf = new Etf();
             etf.setIsin("DEISINDEF456");
-            etf.setWkn("DEF456");
             etf.setName("Dummy ETF No. 2");
 
             IncludedStock microsoft = generateIncludedStockWithWeightForEtf(generateMicrosoftStock(),10.2f, etf);
@@ -69,7 +67,6 @@ public class DummyDataGenerator {
             stock = new Stock();
             stock.setName("Microsoft");
             stock.setIsin("US5949181045");
-            stock.setSymbol("MSFT");
         } else {
             stock = microsoftStock;
         }
@@ -82,7 +79,6 @@ public class DummyDataGenerator {
 
         if (appleStock == null) {
             stock = new Stock();
-            stock.setSymbol("AAPL");
             stock.setName("Apple");
             stock.setIsin("US0378331005");
         } else {
@@ -99,7 +95,6 @@ public class DummyDataGenerator {
             stock = new Stock();
             stock.setName("Nvidia");
             stock.setIsin("US67066G1040");
-            stock.setSymbol("NVDA");
         } else {
             stock = nvidiaStock;
         }
@@ -118,7 +113,6 @@ public class DummyDataGenerator {
         StockWithWeightDto dto = new StockWithWeightDto();
         dto.isin = stock.getIsin();
         dto.name = stock.getName();
-        dto.symbol = stock.getSymbol();
         dto.weight = weight;
 
         return dto;

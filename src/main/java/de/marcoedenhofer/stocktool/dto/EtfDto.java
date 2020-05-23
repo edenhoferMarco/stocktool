@@ -1,21 +1,14 @@
 package de.marcoedenhofer.stocktool.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.List;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class EtfDto {
     public String name;
     public String isin;
-    public String wkn;
     public List<StockWithWeightDto> stockWithWeightDtos;
-
-    public EtfDto() {
-
-    }
-
-    public EtfDto(String name, String isin, String wkn, List<StockWithWeightDto> stockWithWeightDtos) {
-        this.name = name;
-        this.isin = isin;
-        this.wkn = wkn;
-        this.stockWithWeightDtos = stockWithWeightDtos;
-    }
 }

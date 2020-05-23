@@ -52,7 +52,6 @@ public class EtfComparatorService implements IEtfComparatorService {
                     StockWithWeightDto stockWithWeightDto = new StockWithWeightDto();
                     stockWithWeightDto.isin = includedStock.getStock().getIsin();
                     stockWithWeightDto.name = includedStock.getStock().getName();
-                    stockWithWeightDto.symbol = includedStock.getStock().getSymbol();
                     stockWithWeightDto.weight = includedStock.getWeight();
 
                     return stockWithWeightDto;

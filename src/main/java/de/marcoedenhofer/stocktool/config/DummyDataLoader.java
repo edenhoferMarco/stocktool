@@ -19,8 +19,8 @@ import java.util.function.Predicate;
 @Profile("!test")
 public class DummyDataLoader implements ApplicationRunner {
 
-    final private IStockRepository stockRepository;
-    final private IEtfRepository etfRepository;
+    private final  IStockRepository stockRepository;
+    private final  IEtfRepository etfRepository;
 
     DummyDataLoader(IStockRepository stockRepository, IEtfRepository etfRepository) {
         this.stockRepository = stockRepository;
@@ -39,18 +39,14 @@ public class DummyDataLoader implements ApplicationRunner {
         Stock microsoftStock = new Stock();
         microsoftStock.setName("Microsoft");
         microsoftStock.setIsin("US5949181045");
-        microsoftStock.setSymbol("MSFT");
-
 
         Stock nvidiaStock = new Stock();
         nvidiaStock.setName("Nvidia");
         nvidiaStock.setIsin("US67066G1040");
-        nvidiaStock.setSymbol("NVDA");
 
         Stock appleStock = new Stock();
         appleStock.setName("Apple");
         appleStock.setIsin("US0378331005");
-        appleStock.setSymbol("AAPL");
 
         // stockRepository.save(microsoftStock);
         // stockRepository.save(nvidiaStock);
@@ -58,17 +54,14 @@ public class DummyDataLoader implements ApplicationRunner {
 
         Etf etf1 = new Etf();
         etf1.setIsin("DEISINABC001");
-        etf1.setWkn("ABC001");
         etf1.setName("Dummy ETF No. 1");
 
         Etf etf2 = new Etf();
         etf2.setIsin("DEISINDEF002");
-        etf2.setWkn("DEF002");
         etf2.setName("Dummy ETF No. 2");
 
         Etf etf3 = new Etf();
         etf3.setIsin("DEISINDEF003");
-        etf3.setWkn("DEF003");
         etf3.setName("Dummy ETF No. 3");
 
         IncludedStock includedMicrosoftStock1 = new IncludedStock();

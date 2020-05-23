@@ -1,9 +1,18 @@
 package de.marcoedenhofer.stocktool.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
 @IdClass(EtfStockCombinedIdentifiedEntry.class)
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
 public class IncludedStock {
     @Id
     @ManyToOne(fetch = FetchType.LAZY)
@@ -13,28 +22,4 @@ public class IncludedStock {
     private Stock stock;
 
     private float weight;
-
-    public float getWeight() {
-        return weight;
-    }
-
-    public void setWeight(float weight) {
-        this.weight = weight;
-    }
-
-    public Etf getEtf() {
-        return etf;
-    }
-
-    public void setEtf(Etf etf) {
-        this.etf = etf;
-    }
-
-    public Stock getStock() {
-        return stock;
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-    }
 }

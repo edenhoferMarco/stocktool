@@ -31,7 +31,6 @@ public class CsvIngestionService implements ICsvIngestionService {
     public Etf createEtfWithCsvFromPath(Etf etfDetails, Path pathToCsv) throws FileNotFoundException {
         Etf etfToCreate = new Etf();
         etfToCreate.setName(etfDetails.getName());
-        etfToCreate.setWkn(etfDetails.getWkn());
         etfToCreate.setIsin(etfDetails.getIsin());
         List<StockWithWeightDto> stockWithWeightDtos = csvLoader.loadCsvFromPath(pathToCsv);
 
@@ -45,7 +44,6 @@ public class CsvIngestionService implements ICsvIngestionService {
     public Etf createEtfWithCsvFromStream(Etf etfDetails, InputStream csvFileInputStream) {
         Etf etfToCreate = new Etf();
         etfToCreate.setName(etfDetails.getName());
-        etfToCreate.setWkn(etfDetails.getWkn());
         etfToCreate.setIsin(etfDetails.getIsin());
         List<StockWithWeightDto> stockWithWeightDtos = csvLoader.loadCsvFromInputStream(csvFileInputStream);
 
@@ -59,7 +57,6 @@ public class CsvIngestionService implements ICsvIngestionService {
                 .map(dto -> {
                     Stock stock = new Stock();
                     stock.setName(dto.name);
-                    stock.setSymbol(dto.symbol);
                     stock.setIsin(dto.isin);
 
                     IncludedStock includedStock = new IncludedStock();
