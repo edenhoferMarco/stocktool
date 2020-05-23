@@ -34,10 +34,6 @@
                                     <input placeholder="IE00BJ0KDQ92" th:field="*{isin}" id="etf-isin" type="text" class="validate">
                                     <label for="etf-isin">ISIN</label>
                                 </div>
-                                <div class="input-field col s2">
-                                    <input placeholder="A1XB5U" th:field="*{wkn}" id="etf-wkn" type="text" class="validate">
-                                    <label for="etf-wkn">WKN</label>
-                                </div>
                             </div>
                             <div class="row">
                                 <div class="col s7">
@@ -66,6 +62,20 @@
         </div>
     </div>
 
+    <!-- ADD ETF ERROR MODAL -->
+    <!--/*@thymesVar id="etfCreationError" type="java.lang.String"*/-->
+    <div th:if="${etfCreationError} != null">
+        <div id="add-etf-error-modal" class="modal white">
+            <div class="modal-content">
+                <div class="col-12">
+                    <div class="red-text center" role="alert" th:text="${etfCreationError}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
     <div id="content-container" class="row">
         <!-- LEFT CONTAINER START -->
         <div id="left-bar" class="col s3 blue-grey darken-4">
@@ -85,9 +95,6 @@
                                 <div class="row">
                                     <div class="col s7">
                                         <span th:text="${etf.getIsin()}" class="isin-container"></span>
-                                    </div>
-                                    <div class="col s5">
-                                        <span th:text="${etf.getWkn()}" class="wkn-container">WKN123ETF4</span>
                                     </div>
                                 </div>
                             </div>
@@ -203,6 +210,6 @@
 
 <!-- Compiled and minified JavaScript -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-<script th:src="@{/js/scripts.js}"></script>
+<script th:src="@{/js/scripts.js}"></script><script th:if="${etfCreationError} != null" th:src="@{/js/open_error_modal.js}"></script>
 </body>
 </html>

@@ -1,5 +1,6 @@
 package de.marcoedenhofer.stocktool.service.csvingestor.impl;
 
+import de.marcoedenhofer.stocktool.dto.EtfDto;
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.model.Etf;
 import de.marcoedenhofer.stocktool.model.IncludedStock;
@@ -41,7 +42,7 @@ public class CsvIngestionService implements ICsvIngestionService {
 
     @Override
     @Transactional
-    public Etf createEtfWithCsvFromStream(Etf etfDetails, InputStream csvFileInputStream) {
+    public Etf createEtfWithCsvFromStream(EtfDto etfDetails, InputStream csvFileInputStream) {
         Etf etfToCreate = new Etf();
         etfToCreate.setName(etfDetails.getName());
         etfToCreate.setIsin(etfDetails.getIsin());

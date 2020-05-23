@@ -7,7 +7,7 @@ import de.marcoedenhofer.stocktool.model.Stock;
 import de.marcoedenhofer.stocktool.service.etfmanagement.api.IEtfManagementService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -28,7 +28,7 @@ public class MainScreenController {
         this.etfManagementService = etfManagementService;
     }
 
-    @RequestMapping("/")
+    @GetMapping("/")
     public String compare(@RequestParam(value = "etf", required = false) String etfIsin,
                           @RequestParam(value = "otherEtf", required = false) String otherEtfIsin,
                           Model model) {

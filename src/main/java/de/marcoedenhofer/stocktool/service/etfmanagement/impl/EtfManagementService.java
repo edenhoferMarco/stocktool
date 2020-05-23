@@ -1,5 +1,7 @@
 package de.marcoedenhofer.stocktool.service.etfmanagement.impl;
 
+import com.google.common.base.Strings;
+import de.marcoedenhofer.stocktool.dto.EtfDto;
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.model.Etf;
 import de.marcoedenhofer.stocktool.model.Stock;
@@ -44,7 +46,8 @@ public class EtfManagementService implements IEtfManagementService {
     }
 
     @Override
-    public Etf createEtf(Etf etfDetails, InputStream stockCsvInputStream) {
+    public Etf createEtf(EtfDto etfDetails, InputStream stockCsvInputStream) throws IllegalArgumentException {
+        checkIfEtfInputIsValid(etfDetails);
         return csvIngestionService.createEtfWithCsvFromStream(etfDetails, stockCsvInputStream);
     }
 
@@ -62,5 +65,14 @@ public class EtfManagementService implements IEtfManagementService {
     @Override
     public List<StockWithWeightDto> getStocksWithWeightingInEtf(List<Stock> stocks, Etf etf) {
         return etfComparatorService.getStocksWithWeightingInEtf(stocks,etf);
+    }
+
+    private void checkIfEtfInputIsValid(EtfDto etfDto) throws IllegalArgumentException {
+        boolean isinIsValid = !Strings.isNullOrEmpty(etfDto.isin);
+        boolean nameIsValid =  !Strings.isNullOrEmpty(etfDto.name);
+
+        if (!isinIsValid || !nameIsValid) {
+            throw new IllegalArgumentException("Name or Isin from ETF must not be null or empty");
+        }
     }
 }
