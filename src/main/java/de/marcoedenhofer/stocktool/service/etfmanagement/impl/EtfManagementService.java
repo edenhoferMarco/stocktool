@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class EtfManagementService implements IEtfManagementService {
@@ -33,11 +33,8 @@ public class EtfManagementService implements IEtfManagementService {
 
     @Override
     public List<Etf> getAllEtfs() {
-        ArrayList<Etf> etfs = new ArrayList<>();
-
-        etfRepository.findAll().forEach(etfs::add);
-
-        return Collections.unmodifiableList(etfs);
+        return StreamSupport.stream(etfRepository.findAll().spliterator(), false)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     @Override
