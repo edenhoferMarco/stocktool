@@ -5,6 +5,7 @@ import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
 import de.marcoedenhofer.stocktool.dto.StockWithWeightDto;
 import de.marcoedenhofer.stocktool.service.csvingestor.api.ICsvLoader;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -12,12 +13,14 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Component
+@Slf4j
 public class CsvLoader implements ICsvLoader {
 
-    final private Function<CsvStockEntry, StockWithWeightDto> csvEntryToStockWithWeightInFloat = csvStockEntry -> {
+    private final Function<CsvStockEntry, StockWithWeightDto> csvEntryToStockWithWeightDto = csvStockEntry -> {
         StringBuilder trimmedWeight = new StringBuilder(csvStockEntry.weight.trim());
         StringBuilder stringWithoutPercentSign = removePercentSign(trimmedWeight);
         StringBuilder stringWithoutQuotes = removeQuotes(stringWithoutPercentSign);
@@ -46,6 +49,25 @@ public class CsvLoader implements ICsvLoader {
         return loadCsv(csvFileInputStream);
     }
 
+    List<StockWithWeightDto> loadCsv(InputStream csvFileInputStream) {
+        CsvMapper csvMapper = new CsvMapper();
+        CsvSchema csvSchema = csvMapper.schemaFor(CsvStockEntry.class);
+        try {
+            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFileInputStream);
+            List<CsvStockEntry> stocks = it.readAll();
+            // isin is specified to be exactly 12 long.
+            final int specifiedIsinLength = 12;
+            Predicate<CsvStockEntry> isinLengthAsSpecified = entry -> entry.isin.length() == specifiedIsinLength;
+
+            return stocks.stream()
+                    .filter(isinLengthAsSpecified)
+                    .map(csvEntryToStockWithWeightDto)
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            log.error("Error while reading CSV File!", e);
+            return Collections.emptyList();
+        }
+    }
 
     private StringBuilder removePercentSign(StringBuilder input) {
         StringBuilder output;
@@ -59,22 +81,6 @@ public class CsvLoader implements ICsvLoader {
         }
 
         return output;
-    }
-
-    List<StockWithWeightDto> loadCsv(InputStream csvFileInputStream) {
-        CsvMapper csvMapper = new CsvMapper();
-        CsvSchema csvSchema = csvMapper.schemaFor(CsvStockEntry.class);
-        try {
-            MappingIterator<CsvStockEntry> it = csvMapper.readerFor(CsvStockEntry.class).with(csvSchema).readValues(csvFileInputStream);
-            List<CsvStockEntry> stocks = it.readAll();
-
-            return stocks.stream()
-                    .map(csvEntryToStockWithWeightInFloat)
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            e.printStackTrace();
-            return Collections.emptyList();
-        }
     }
 
     private StringBuilder removeQuotes(StringBuilder string) {
