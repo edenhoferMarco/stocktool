@@ -12,6 +12,7 @@ services:
       - backend
     depends_on:
       - mariadb
+    command: sh -c './wait-for mariadb:3306 -t 300 -- java -jar /app.jar'
 
   mariadb:
     container_name: mariadb-stocktool
